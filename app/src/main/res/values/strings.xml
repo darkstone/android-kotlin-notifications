@@ -33,4 +33,6 @@
     <string name="timer_running">Egg timer is running...</string>
     <string name="breakfast_notification_channel_description">Breakfast reminder</string>
     <string name="snooze">Snooze</string>
+    <string name="egg_notification_title">Egg Timer</string>
+    <string name="egg_timer_notification_channel_description">Time for breakfast</string>
 </resources>

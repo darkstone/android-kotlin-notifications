@@ -13,26 +13,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
+
 package com.example.android.eggtimernotifications.ui
 
-import android.app.*
+import android.app.AlarmManager
+import android.app.Application
+import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.os.CountDownTimer
 import android.os.SystemClock
 import androidx.core.app.AlarmManagerCompat
-import androidx.core.content.ContextCompat
-import androidx.lifecycle.*
-import com.example.android.eggtimernotifications.receiver.AlarmReceiver
+import androidx.core.content.getSystemService
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.example.android.eggtimernotifications.R
-import com.example.android.eggtimernotifications.util.sendNotification
-import kotlinx.coroutines.*
+import com.example.android.eggtimernotifications.receiver.AlarmReceiver
+import com.example.android.eggtimernotifications.util.cancelNotifications
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class EggTimerViewModel(private val app: Application) : AndroidViewModel(app) {
-
-    private val REQUEST_CODE = 0
-    private val TRIGGER_TIME = "TRIGGER_AT"
 
     private val minute: Long = 60_000L
     private val second: Long = 1_000L
@@ -114,11 +119,13 @@ class EggTimerViewModel(private val app: Application) : AndroidViewModel(app) {
                 _alarmOn.value = true
                 val selectedInterval = when (timerLengthSelection) {
                     0 -> second * 10 //For testing only
-                    else ->timerLengthOptions[timerLengthSelection] * minute
+                    else -> timerLengthOptions[timerLengthSelection] * minute
                 }
                 val triggerTime = SystemClock.elapsedRealtime() + selectedInterval
 
                 // TODO: Step 1.5 get an instance of NotificationManager and call sendNotification
+                val notificationManager = requireNotNull(app.getSystemService<NotificationManager>())
+                // notificationManager.sendNotification(app, app.getString(R.string.timer_running))
 
                 // TODO: Step 1.15 call cancel notification
 
@@ -129,9 +136,9 @@ class EggTimerViewModel(private val app: Application) : AndroidViewModel(app) {
                     notifyPendingIntent
                 )
 
-                viewModelScope.launch {
-                    saveTime(triggerTime)
-                }
+                notificationManager.cancelNotifications()
+
+                viewModelScope.launch { saveTime(triggerTime) }
             }
         }
         createTimer()
@@ -185,4 +192,9 @@ class EggTimerViewModel(private val app: Application) : AndroidViewModel(app) {
         withContext(Dispatchers.IO) {
             prefs.getLong(TRIGGER_TIME, 0)
         }
+
+    companion object {
+        private const val REQUEST_CODE = 0
+        private const val TRIGGER_TIME = "TRIGGER_AT"
+    }
 }
