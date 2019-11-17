@@ -35,8 +35,6 @@ import com.google.firebase.messaging.FirebaseMessaging
 
 class EggTimerFragment : Fragment() {
 
-    private val TOPIC = "breakfast"
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -95,6 +93,8 @@ class EggTimerFragment : Fragment() {
 
     companion object {
         fun newInstance() = EggTimerFragment()
+        private const val TOPIC = "breakfast"
+
     }
 }
 
