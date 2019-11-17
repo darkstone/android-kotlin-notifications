@@ -24,11 +24,12 @@ import android.graphics.BitmapFactory
 import androidx.core.app.NotificationCompat
 import com.example.android.eggtimernotifications.MainActivity
 import com.example.android.eggtimernotifications.R
+import com.example.android.eggtimernotifications.receiver.SnoozeReceiver
 
 // Notification ID.
 private const val NOTIFICATION_ID = 0
 private const val REQUEST_CODE = 0
-private const val FLAGS = 0
+private const val FLAG_ONE_SHOT = 0
 
 // TODO: Step 1.1 extension function to send messages (GIVEN)
 /**
@@ -89,11 +90,23 @@ fun NotificationManager.sendNotification(
     notification.setStyle(bitPictureStyle)
     notification.setLargeIcon(eggImage)
 
-
     // TODO: Step 2.3 add snooze action
+    val snoozeIntent = Intent(context, SnoozeReceiver::class.java)
+    val snoozePending = PendingIntent.getBroadcast(
+        context,
+        REQUEST_CODE,
+        snoozeIntent,
+        FLAG_ONE_SHOT
+    )
+
 
     // TODO: Step 2.5 set priority
     notification.priority = NotificationCompat.PRIORITY_DEFAULT
+    notification.addAction(
+        R.drawable.egg_icon,
+        context.getString(R.string.snooze),
+        snoozePending
+    )
 
     // TODO: Step 1.4 call notify
 
