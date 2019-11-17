@@ -101,7 +101,7 @@ fun NotificationManager.sendNotification(
 
 
     // TODO: Step 2.5 set priority
-    notification.priority = NotificationCompat.PRIORITY_DEFAULT
+    notification.priority = NotificationCompat.PRIORITY_HIGH
     notification.addAction(
         R.drawable.egg_icon,
         context.getString(R.string.snooze),
