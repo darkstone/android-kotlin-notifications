@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "585879755372",
+    "firebase_url": "https://fcm-eggtimer-edu.firebaseio.com",
+    "project_id": "fcm-eggtimer-edu",
+    "storage_bucket": "fcm-eggtimer-edu.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:585879755372:android:7edc58c85b3527285d1649",
+        "android_client_info": {
+          "package_name": "com.example.android.eggtimernotifications"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "585879755372-a6vq89r9n2i4l16e77k5820sb9o8hhjb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCXlNnuJVo2-Q9COAYe_ocH0w9_pmLy6OQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "585879755372-a6vq89r9n2i4l16e77k5820sb9o8hhjb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
