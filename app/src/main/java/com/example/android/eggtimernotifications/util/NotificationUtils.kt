@@ -108,7 +108,6 @@ fun NotificationManager.sendNotification(
     )
 
     // TODO: Step 1.4 call notify
-
     notify(NOTIFICATION_ID, notification.build())
 
 }
