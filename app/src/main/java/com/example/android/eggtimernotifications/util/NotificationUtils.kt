@@ -20,6 +20,7 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.graphics.BitmapFactory
 import androidx.core.app.NotificationCompat
 import com.example.android.eggtimernotifications.MainActivity
 import com.example.android.eggtimernotifications.R
@@ -43,7 +44,12 @@ fun NotificationManager.sendNotification(
     // this activity
     // TODO: Step 1.11 create intent
     val contentIntent = Intent(context, MainActivity::class.java)
-    val contentPending = PendingIntent.getActivity(context, NOTIFICATION_ID, contentIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+    val contentPending = PendingIntent.getActivity(
+        context,
+        NOTIFICATION_ID,
+        contentIntent,
+        PendingIntent.FLAG_UPDATE_CURRENT
+    )
 
 
     // TODO: Step 1.12 create PendingIntent
@@ -54,31 +60,44 @@ fun NotificationManager.sendNotification(
 
     // TODO: Step 1.2 get an instance of NotificationCompat.Builder
     // Build the notification
-    val builder = NotificationCompat.Builder(
+    val notification = NotificationCompat.Builder(
         context,
-        context.getString(R.string.breakfast_notification_channel_id))
-        .setSmallIcon(R.drawable.egg_icon)
-        // TODO: Step 1.3 set title, text and icon to builder
-        .setContentTitle(context.getString(R.string.egg_notification_title))
-        .setContentTitle(messageBody)
-        .setContentIntent(contentPending)
-        .setAutoCancel(true)
+        context.getString(R.string.breakfast_notification_channel_id)
+    )
+    // TODO: Step 1.3 set title, text and icon to builder
+    notification.setSmallIcon(R.drawable.egg_icon)
+    notification.setContentTitle(context.getString(R.string.egg_notification_title))
+    notification.setContentTitle(messageBody)
+    notification.setAutoCancel(true)
 
     // TODO: Step 1.4 call notify to send notification
-    notify(NOTIFICATION_ID, builder.build())
+    //notify(NOTIFICATION_ID, builder.build())
 
     // TODO: Step 1.8 use the new 'breakfast' notification channel
+    notification.setChannelId(context.getString(R.string.breakfast_notification_channel_id))
 
 
     // TODO: Step 1.13 set content intent
+    notification.setContentIntent(contentPending)
 
     // TODO: Step 2.1 add style to builder
+    val eggImage = BitmapFactory.decodeResource(context.resources, R.drawable.cooked_egg)
+    val bitPictureStyle = NotificationCompat.BigPictureStyle()
+        .bigPicture(eggImage)
+        .bigLargeIcon(null)
+
+    notification.setStyle(bitPictureStyle)
+    notification.setLargeIcon(eggImage)
+
 
     // TODO: Step 2.3 add snooze action
 
     // TODO: Step 2.5 set priority
+    notification.priority = NotificationCompat.PRIORITY_DEFAULT
 
     // TODO: Step 1.4 call notify
+
+    notify(NOTIFICATION_ID, notification.build())
 
 }
 

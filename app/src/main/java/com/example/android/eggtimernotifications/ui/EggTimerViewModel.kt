@@ -82,10 +82,7 @@ class EggTimerViewModel(private val app: Application) : AndroidViewModel(app) {
 
         timerLengthOptions = app.resources.getIntArray(R.array.minutes_array)
 
-        //If alarm is not null, resume the timer back for this alarm
-        if (_alarmOn.value!!) {
-            createTimer()
-        }
+        isAlarmOn.value?.also { createTimer() }
 
     }
 
