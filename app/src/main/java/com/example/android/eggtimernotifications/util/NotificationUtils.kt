@@ -76,8 +76,7 @@ fun NotificationManager.sendNotification(
 
     // TODO: Step 1.8 use the new 'breakfast' notification channel
     notification.setChannelId(context.getString(R.string.breakfast_notification_channel_id))
-
-
+    
     // TODO: Step 1.13 set content intent
     notification.setContentIntent(contentPending)
 

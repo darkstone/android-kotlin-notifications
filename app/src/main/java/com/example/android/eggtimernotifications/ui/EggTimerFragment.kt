@@ -72,6 +72,7 @@ class EggTimerFragment : Fragment() {
                 enableVibration(true)
                 lightColor = Color.RED
                 description = getString(R.string.egg_timer_notification_channel_description)
+                setShowBadge(false)
             }
             // TODO: Step 1.6 END create a channel
             requireNotNull(requireActivity().getSystemService<NotificationManager>()).createNotificationChannel(
